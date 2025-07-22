@@ -1,3 +1,9 @@
-poetry
 google-adk
-pypdf
+google-cloud-secret-manager
+google-auth
+brave-search
+requests
+beautifulsoup4
+PyMuPDF
+PyPDF2
+finnhub-python
