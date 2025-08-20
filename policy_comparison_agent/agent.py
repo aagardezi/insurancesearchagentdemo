@@ -96,7 +96,9 @@ box_report_agent = Agent(
             Strengths (Internal, Positive)
             Weaknesses (Internal, Negative)
             Opportunities (External, Positive)
-            Threats (External, Negative)"""
+            Threats (External, Negative)
+            
+            use the above to create a box report of the different insurance policies analysed by the agent"""
     )
 )
 
@@ -114,6 +116,15 @@ analysis_agent = Agent(
         "the new policy should create a new market that the company can leverage to get new customers"
     ),
     # sub_agents=[report_agent]
+)
+
+seq_agent = Agent(
+    name="seq_agent",
+    description=(
+        "you are the agent that runs the process for collecting the data and creating the report"
+        "USe the brave_search_agent to get the documents and then create the analysis and reports"
+    ),
+    sub_agents=[brave_search_agnet, analysis_agent, box_report_agent]
 )
 
 root_agent = Agent(
@@ -136,9 +147,10 @@ root_agent = Agent(
         # "make sure to always use the get_current_date tool to do the date calculation"
         # "use all the sub agnets to create a report on the investment"
         """You are a general purpose agent that uses the search sub agent to get a list of insurance policy documents and compares them
-        create formatded output based on the users request of how to do the comparison"""
+        create formatded output based on the users request of how to do the comparison. Use the brave_search_agnet to get the policy
+        details"""
 
     ),
     tools=[get_current_date],
-    sub_agents=[brave_search_agnet,analysis_agent, box_report_agent]
+    sub_agents=[seq_agent]
 )
